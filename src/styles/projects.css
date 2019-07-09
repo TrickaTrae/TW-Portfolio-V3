@@ -1,0 +1,78 @@
+#projects {
+    background-color: #1c1e21;
+    height: 100%;
+}
+
+.divider {
+    border-bottom: 3px solid #17a2b8;
+    max-width: 100px;
+    margin: auto;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.my-btn {
+    min-width: 13.8rem;
+}
+
+.my-btn:focus,
+.my-btn:active{
+    background-color: #17a2b8 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.my-card {
+    background-color: #282c34;
+    box-shadow: 3px 3px 8px #17191b; 
+}
+
+.view-site {
+    text-decoration-color: #17a2b8 !important;
+    padding-right: 1em;
+}
+
+.none {
+    display: none;
+}
+
+.view-code {
+    text-decoration-color: #17a2b8 !important;
+}
+
+.tech {
+    border-left: 1.4px solid #17a2b8;
+    padding-left: 0.5em;
+    margin-left: -0.6em;
+}
+
+.scale-in-center {
+	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes scale-in-center {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in-center {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 1;
+    }
+  }
+    
