@@ -1,0 +1,15 @@
+#footer {
+    padding: 3% 3% 3% 3%;
+}
+
+.icon-col {
+    max-width: 6em;
+}
+
+.my-icon:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  cursor: pointer;
+  text-decoration: none !important;
+}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Intro from "./components/intro";
 import Projects from "./components/projects";
+import Footer from "./components/footer";
 import img_SmallFriAcademy from './assets/SmallFriAcademy.png';
 import img_PythonMicroservice from './assets/PythonMicroservice.png';
 import img_LifeElevated from './assets/LifeElevated.png';
@@ -17,22 +18,13 @@ class App extends Component {
     this.state = {
       projects: [
         {
-          title: "Small Fri Academy",
-          description: "Informational website designed and built for the daycare center Small Fri Academy. Business saw 50% increase in number of students enrolled, and consistently receives inquiries through implemented contact form.",
-          tech: "React, React Router, Bootstrap, Formspree, Google Map API",
-          site_link: "https://www.smallfriacademy.org",
-          code_link: "https://github.com/TrickaTrae/Small-Fri-Academy",
-          image: img_SmallFriAcademy,
-          filters: "React"
-        },
-        {
-          title: "Python Microservice",
-          description: "Challenged to build a program with technologies that were completely foreign to me, in an alloted amount of time. A microservice that pulls data from developerlevel, and displays it. I completed the challenge successfully. Not pretty, but completely functional.",
-          tech: "Python, Flask, Flask-PyMongo, virtualenv",
-          site_link: "",
-          code_link: "https://github.com/TrickaTrae/Python-Microservice",
-          image: img_PythonMicroservice,
-          filters: ""
+          title: "Developer Level",
+          description: "Inner app for Paladin & Archer. An application for developing developers. Building new features, functionalities, and enhancements for both the front-end and back-end along with writing unit/e2e tests. Worked on through-out entire employment.",
+          tech: "Meteor, JavaScript, Less, Bootstrap, Node, MongoDB, Mocha, Chai, Nightwatch, Selenium",
+          site_link: "http://app.developerlevel.com",
+          code_link: "https://github.com/TrickaTrae/padawan",
+          image: img_DeveloperLevel,
+          filters: "Meteor, Full-Stack"
         },
         {
           title: "Life Elevated",
@@ -44,13 +36,13 @@ class App extends Component {
           filters: "Full-Stack"
         },
         {
-          title: "Developer Level",
-          description: "Inner app for Paladin & Archer. An application for developing developers. Building new features, functionalities, and enhancements for both the front-end and back-end along with writing unit/e2e tests. Worked on through-out entire employment.",
-          tech: "Meteor, JavaScript, Less, Bootstrap, Node, MongoDB, Mocha, Chai, Nightwatch, Selenium",
-          site_link: "http://app.developerlevel.com",
-          code_link: "https://github.com/TrickaTrae/padawan",
-          image: img_DeveloperLevel,
-          filters: "Meteor, Full-Stack"
+          title: "Python Microservice",
+          description: "Challenged to build a program with technologies that were completely foreign to me, in an alloted amount of time. A microservice that pulls data from developerlevel, and displays it. I completed the challenge successfully. Not pretty, but completely functional.",
+          tech: "Python, Flask, Flask-PyMongo, virtualenv",
+          site_link: "",
+          code_link: "https://github.com/TrickaTrae/Python-Microservice",
+          image: img_PythonMicroservice,
+          filters: ""
         },
         {
           title: "Community Cork",
@@ -60,6 +52,15 @@ class App extends Component {
           code_link: "",
           image: img_ComCork,
           filters: "React, Meteor, Full-Stack"
+        },
+        {
+          title: "Small Fri Academy",
+          description: "Informational website designed and built for the daycare center Small Fri Academy. Business saw 50% increase in number of students enrolled, and consistently receives inquiries through implemented contact form.",
+          tech: "React, React Router, Bootstrap, Formspree, Google Map API",
+          site_link: "https://www.smallfriacademy.org",
+          code_link: "https://github.com/TrickaTrae/Small-Fri-Academy",
+          image: img_SmallFriAcademy,
+          filters: "React"
         },
         {
           title: "Livayo",
@@ -79,7 +80,6 @@ class App extends Component {
           image: img_CannaGroupHoldings,
           filters: "React"
         },
-        // Tic Tac Toe?
         // Pong/Ping Pong?
       ],
       animateProjects: false
@@ -118,6 +118,7 @@ class App extends Component {
           animateProjectsClick={this.handleAnimateProjects} 
           animateProjects={this.state.animateProjects} 
         />
+        <Footer />
       </div>
     );
   }

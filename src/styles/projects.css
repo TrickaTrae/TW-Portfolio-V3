@@ -13,6 +13,7 @@
 
 .my-btn {
     min-width: 13.8rem;
+    margin: 1%;
 }
 
 .my-btn:focus,
@@ -75,4 +76,31 @@
       opacity: 1;
     }
   }
-    
+
+  @media screen and (max-width: 768px){
+    .project-container {
+        padding: 2rem 0 !important;
+    }
+    .card-columns {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+}
+
+  @media screen and (max-width: 576px) {
+    .project-container {
+        padding: 24px !important;
+    }
+    .card-row {
+        padding: 4% !important;
+    }
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+      }
+    .my-btn {
+        width: 100%;
+    }
+  }

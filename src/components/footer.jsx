@@ -1,0 +1,31 @@
+import React from "react";
+import "../styles/footer.css";
+
+const Footer = () => {
+  return (
+    <div id="footer">
+        <div className="container">
+            <div className="row d-flex justify-content-center">
+                <div className="col icon-col text-center">
+                    {/* eslint-disable-next-line */}
+                    <a href="mailto:traeger.winn@gmail.com" class="fa fa-envelope fa-3x text-white my-icon" />
+                </div>
+                <div className="col icon-col text-center">
+                    {/* eslint-disable-next-line */}
+                    <a href="https://www.linkedin.com/in/traegerwinn/" class="fa fa-linkedin-square fa-3x text-white my-icon" />
+                </div>
+                <div className="col icon-col text-center">
+                    {/* eslint-disable-next-line */}
+                    <a href="https://github.com/TrickaTrae" class="fa fa-github fa-3x text-white my-icon" />
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col text-center">
+                    <i class="fa fa-copyright text-secondary" aria-hidden="true"> 2019 Traeger Winn</i>
+                </div>
+            </div>
+        </div>
+    </div>
+  );
+};
+export default Footer;

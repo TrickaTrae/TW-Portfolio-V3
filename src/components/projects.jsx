@@ -4,7 +4,7 @@ import "../styles/projects.css";
 const Projects = props => {
   return (
     <div id="projects" className="d-flex align-items-center justify-content-center" ref={props.projRef}>
-        <div className="container p-5">
+        <div className="container p-5 project-container">
             <div className="row d-flex align-items-center justify-content-center">
                 <h1 className="text-white">My Work</h1>
             </div>
@@ -24,7 +24,7 @@ const Projects = props => {
                 </div>
             </div>
 
-            <div className="row p-4">
+            <div className="row p-4 card-row">
                 <div className="card-columns">
                     {
                         props.projects.map((project, key) => {
