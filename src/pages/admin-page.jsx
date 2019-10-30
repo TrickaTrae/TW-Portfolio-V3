@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import "../styles/admin-page.css";
 
+let URL;
+let imageURL;
+
+console.log("env: ", process.env.NODE_ENV);
+
+if(process.env.NODE_ENV === "production"){
+    URL = "https://shrouded-savannah-58703.herokuapp.com/projects";
+    imageURL = "https://shrouded-savannah-58703.herokuapp.com/";
+}else if(process.env.NODE_ENV === "development"){
+    URL = "http://localhost:3000/projects";
+    imageURL = "http://localhost:3000/";
+}
+
 class AdminPage extends Component {
     constructor(){
         super();
@@ -95,7 +108,7 @@ class AdminPage extends Component {
                                         <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectDelete(project._id)}>Delete</button>
                                     </div>
                                     <div className="col-6 d-flex align-items-center justify-content-center p-2">
-                                        <img className="project-image" src={"http://localhost:3000/" + project.image} alt="Card pic" />
+                                        <img className="project-image" src={imageURL + project.image} alt="Card pic" />
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +122,7 @@ class AdminPage extends Component {
     }
 
     fetchProjectsInDB = () => {
-        fetch('http://localhost:3000/projects').then(result => {
+        fetch(URL).then(result => {
             return result.json();
         }).then(data => {
             this.setState({ projects: data });
@@ -118,7 +131,6 @@ class AdminPage extends Component {
 
     handleProjectFormSubmit = e => {
         e.preventDefault();
-        
         this.setState({ formInput: {
             title: this.state.title,
             description: this.state.description,
@@ -131,7 +143,7 @@ class AdminPage extends Component {
             formData.append('formInput', JSON.stringify(this.state.formInput));
             formData.append('image', this.state.imageFile);
     
-            fetch('http://localhost:3000/projects', {
+            fetch(URL, {
                 method: 'post',
                 mode: 'cors',
                 body: formData,
@@ -194,7 +206,7 @@ class AdminPage extends Component {
                 formData.append('formInput', JSON.stringify(this.state.formInput));
                 formData.append('image', this.state.newImageFile);
         
-                fetch('http://localhost:3000/projects/' + projectId, {
+                fetch(URL + '/' + projectId, {
                     method: 'put',
                     mode: 'cors',
                     body: formData,
@@ -217,7 +229,7 @@ class AdminPage extends Component {
             }}, () => {
                 let formData = JSON.stringify(this.state.formInput)
         
-                fetch('http://localhost:3000/projects/' + projectId, {
+                fetch(URL + '/' + projectId, {
                     method: 'put',
                     mode: 'cors',
                     body: formData,
@@ -234,7 +246,7 @@ class AdminPage extends Component {
     }
 
     handleProjectDelete = (projectId) => {
-        fetch('http://localhost:3000/projects/' + projectId, {
+        fetch(URL + '/' + projectId, {
             method: 'delete',
             mode: 'cors'
         }).then((response) => {
