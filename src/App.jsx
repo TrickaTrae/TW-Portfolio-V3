@@ -82,10 +82,16 @@ class App extends Component {
         },
         // Pong/Ping Pong?
       ],
-      animateProjects: false
+      animateProjects: false,
+      animateFooter: false
     };
     this.originalProjects = this.state.projects;
     this.projRef = React.createRef();
+    this.footerRef = React.createRef();
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleFooterAnimation);
   }
   
   render() {
@@ -99,7 +105,7 @@ class App extends Component {
           animateProjectsClick={this.handleAnimateProjects} 
           animateProjects={this.state.animateProjects} 
         />
-        <Footer />
+        <Footer footerRef={this.footerRef} animateFooter={this.state.animateFooter} />
       </div>
     );
   }
@@ -121,6 +127,14 @@ class App extends Component {
 
   handleAnimateProjects = (status) => {
     this.setState({ animateProjects: status });
+  }
+
+  handleFooterAnimation = () => {
+    let bottomOfPage = window.scrollY + window.innerHeight;
+    let topOfFooter = this.footerRef.current.offsetTop;
+    if(bottomOfPage > topOfFooter && this.state.animateFooter === false){
+      this.setState({ animateFooter: true })
+    }
   }
 
 }
