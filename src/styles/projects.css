@@ -14,6 +14,7 @@
 .my-btn {
     min-width: 13.8rem;
     margin: 1%;
+    font-weight: 500;
 }
 
 .my-btn:focus,
