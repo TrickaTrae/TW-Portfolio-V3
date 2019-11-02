@@ -24,7 +24,8 @@ class Home extends Component {
           site_link: "http://app.developerlevel.com",
           code_link: "https://github.com/TrickaTrae/padawan",
           image: img_DeveloperLevel,
-          filters: "Meteor, Full-Stack"
+          filters: "Meteor, Full-Stack",
+          disabled: false
         },
         {
           title: "Life Elevated",
@@ -33,7 +34,8 @@ class Home extends Component {
           site_link: "http://life-elevated.builtbycatapult.com/",
           code_link: "",
           image: img_LifeElevated,
-          filters: "Full-Stack"
+          filters: "Full-Stack",
+          disabled: false
         },
         {
           title: "Python Microservice",
@@ -42,7 +44,8 @@ class Home extends Component {
           site_link: "",
           code_link: "https://github.com/TrickaTrae/Python-Microservice",
           image: img_PythonMicroservice,
-          filters: ""
+          filters: "",
+          disabled: false
         },
         {
           title: "Community Cork",
@@ -51,7 +54,8 @@ class Home extends Component {
           site_link: "http://profork.local.paladinarcher.com/",
           code_link: "",
           image: img_ComCork,
-          filters: "React, Meteor, Full-Stack"
+          filters: "React, Meteor, Full-Stack",
+          disabled: true
         },
         {
           title: "Small Fri Academy",
@@ -60,7 +64,8 @@ class Home extends Component {
           site_link: "https://www.smallfriacademy.org",
           code_link: "https://github.com/TrickaTrae/Small-Fri-Academy",
           image: img_SmallFriAcademy,
-          filters: "React"
+          filters: "React",
+          disabled: false
         },
         {
           title: "Livayo",
@@ -69,7 +74,8 @@ class Home extends Component {
           site_link: "http://livayo.builtbycatapult.com/",
           code_link: "",
           image: img_Livayo,
-          filters: ""
+          filters: "",
+          disabled: true
         },
         {
           title: "Canna Group Holdings",
@@ -78,7 +84,8 @@ class Home extends Component {
           site_link: "https://cannagroupholdings.com/",
           code_link: "https://github.com/TrickaTrae/Canna-Group-Holdings",
           image: img_CannaGroupHoldings,
-          filters: "React"
+          filters: "React",
+          disabled: false
         },
         // Pong/Ping Pong?
       ],

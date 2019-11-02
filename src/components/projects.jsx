@@ -27,7 +27,7 @@ const Projects = props => {
             <div className="row p-4 card-row">
                 <div className="card-columns">
                     {
-                        props.projects.map((project, key) => {
+                        props.projects.filter(project => project.disabled === false).map((project, key) => {
                             return (
                                 <div className={props.animateProjects ? "card my-card scale-in-center" : "card my-card"} onAnimationEnd={() => props.animateProjectsClick(false)} key={key}>
                                     <img className="card-img-top" src={project.image} alt="Card pic" />
