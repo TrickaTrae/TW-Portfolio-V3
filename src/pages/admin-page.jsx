@@ -4,8 +4,6 @@ import "../styles/admin-page.css";
 let URL;
 let imageURL;
 
-console.log("env: ", process.env.NODE_ENV);
-
 if(process.env.NODE_ENV === "production"){
     URL = "https://shrouded-savannah-58703.herokuapp.com/projects";
     imageURL = "https://shrouded-savannah-58703.herokuapp.com/";
@@ -30,7 +28,8 @@ class AdminPage extends Component {
             imageFile: '',
             newImageFile: '',
             modify: '',
-            projectToModify: ''
+            projectToModify: '',
+            fileInputKey: Date.now()
         }
     }
 
@@ -40,22 +39,22 @@ class AdminPage extends Component {
 
     render() {
         return (
-          <div id="admin_page" className="">
+          <div id="admin_page">
               <div className="container">
       
                   <form className="project-form" onSubmit={this.handleProjectFormSubmit}>
                       <div className="form-group">
                           <h1 className="text-white">Add a new project</h1>
-                          <input type="text" className="form-control mb-1" id="project_title" placeholder="title" required onChange={e => this.setState({ title: e.target.value })} />
-                          <input type="text" className="form-control mb-1" id="project_description" placeholder="description" required onChange={e => this.setState({ description: e.target.value })} />
-                          <input type="text" className="form-control mb-1" id="project_tech" placeholder="technologies used" onChange={e => this.setState({ tech: e.target.value })} />
-                          <input type="text" className="form-control mb-1" id="project_site_link" placeholder="site url" onChange={e => this.setState({ site_link: e.target.value })} />
-                          <input type="text" className="form-control mb-1" id="project_code_link" placeholder="code url (github, bitbucket, etc)" onChange={e => this.setState({ code_link: e.target.value })} />
-                          <input type="text" className="form-control" id="project_filters" placeholder="filters (React, Meteor, etc)" onChange={e => this.setState({ filters: e.target.value })} />
+                          <input type="text" className="form-control mb-1" id="project_title" placeholder="title" value={this.state.title} required onChange={e => this.setState({ title: e.target.value })} />
+                          <input type="text" className="form-control mb-1" id="project_description" placeholder="description" value={this.state.description} required onChange={e => this.setState({ description: e.target.value })} />
+                          <input type="text" className="form-control mb-1" id="project_tech" placeholder="technologies used" value={this.state.tech} onChange={e => this.setState({ tech: e.target.value })} />
+                          <input type="text" className="form-control mb-1" id="project_site_link" placeholder="site url" value={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })} />
+                          <input type="text" className="form-control mb-1" id="project_code_link" placeholder="code url (github, bitbucket, etc)" value={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })} />
+                          <input type="text" className="form-control" id="project_filters" placeholder="filters (React, Meteor, etc)" value={this.state.filters} onChange={e => this.setState({ filters: e.target.value })} />
                       </div>
                       <div className="form-group">
                           <label htmlFor="project_image" className="text-white">Upload Website Image: </label>
-                          <input type="file" className="form-control-file mb-1 text-white" id="project_image" required onChange={e => this.setState({ imageFile: e.target.files[0] })} />
+                          <input type="file" className="form-control-file mb-1 text-white" id="project_image" key={this.state.fileInputKey} required onChange={e => this.setState({ imageFile: e.target.files[0] })} />
                       </div>
                       <button type="submit" className="btn btn-success btn-lg submit-button">Submit</button>
                   </form>
@@ -80,7 +79,7 @@ class AdminPage extends Component {
                                                 <label className="text-secondary">Filters: </label><input type="text" className="form-control" defaultValue={this.state.filters} onChange={e => this.setState({ filters: e.target.value })}/><br/>
                                                 {this.state.disabled ? <button className="btn btn-warning mt-3" onClick={() => this.setState({ disabled: false })}>Enable Project</button> : <button className="btn btn-danger mt-3" onClick={() => this.setState({ disabled: true })}>Disable Project</button>}
                                                 <button type="submit" className="btn btn-success ml-2 mt-3" onClick={() => this.handleProjectModifySubmit(project._id)}>Submit</button>
-                                                <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectModifyCancel()}>Cancel</button>
+                                                <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectReset()}>Cancel</button>
                                             </div>
                                             <div className="col-6 d-flex flex-column justify-content-center p-2">
                                                 <label className="text-white">Keep current image: </label>
@@ -152,48 +151,12 @@ class AdminPage extends Component {
                 body: formData,
             }).then((response) => {
                 if(response.ok){
-                    window.location.reload();
+                    this.handleProjectReset();
+                    this.fetchProjectsInDB();
                 }
             })
 
         });
-    }
-
-    handleProjectModify = (projectId) => {
-        this.setState({
-            modify: true,
-            projectToModify: projectId
-        })
-
-        this.state.projects.filter(project => project._id === projectId).map( project => {
-            return(
-                this.setState({
-                    title: project.title,
-                    description: project.description,
-                    tech: project.tech,
-                    site_link: project.site_link,
-                    code_link: project.code_link,
-                    filters: project.filters,
-                    disabled: project.disabled,
-                    imageFile: project.image
-                })
-            )
-        })
-    }
-
-    handleProjectModifyCancel = () => {
-        this.setState({
-            modify: "",
-            projectToModify: "",
-            title: "",
-            description: "",
-            tech: "",
-            site_link: "",
-            code_link: "",
-            filters: "",
-            disabled: "",
-            imageFile: ""
-        })
     }
 
     handleProjectModifySubmit = (projectId) => {
@@ -218,7 +181,8 @@ class AdminPage extends Component {
                     body: formData,
                 }).then((response) => {
                     if(response.ok){
-                        window.location.reload();
+                        this.handleProjectReset();
+                        this.fetchProjectsInDB();
                     }
                 })
             });
@@ -245,7 +209,8 @@ class AdminPage extends Component {
                     }
                 }).then((response) => {
                     if(response.ok){
-                        window.location.reload();
+                        this.handleProjectReset();
+                        this.fetchProjectsInDB();
                     }
                 })
             });
@@ -258,8 +223,46 @@ class AdminPage extends Component {
             mode: 'cors'
         }).then((response) => {
             if(response.ok){
-                window.location.reload();
+                this.fetchProjectsInDB();
             }
+        })
+    }
+
+    handleProjectModify = (projectId) => {
+        this.setState({
+            modify: true,
+            projectToModify: projectId
+        })
+
+        this.state.projects.filter(project => project._id === projectId).map( project => {
+            return(
+                this.setState({
+                    title: project.title,
+                    description: project.description,
+                    tech: project.tech,
+                    site_link: project.site_link,
+                    code_link: project.code_link,
+                    filters: project.filters,
+                    disabled: project.disabled,
+                    imageFile: project.image
+                })
+            )
+        })
+    }
+
+    handleProjectReset = () => {
+        this.setState({
+            modify: false,
+            projectToModify: "",
+            title: "",
+            description: "",
+            tech: "",
+            site_link: "",
+            code_link: "",
+            filters: "",
+            disabled: "",
+            imageFile: "",
+            fileInputKey: Date.now()
         })
     }
 
