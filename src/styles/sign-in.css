@@ -1,0 +1,12 @@
+#sign_in{
+    background-color: #1c1e21;
+    height: 100vh;
+    padding: 0 2%;
+}
+
+.sign-in-container {
+    width: 26em;
+    background-color: #282c34;
+    padding: 2.5% 4%;
+    border-radius: .5rem;
+}

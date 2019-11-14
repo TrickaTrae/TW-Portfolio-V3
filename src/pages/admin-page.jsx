@@ -3,13 +3,16 @@ import "../styles/admin-page.css";
 
 let URL;
 let imageURL;
+let verifyURL;
 
 if(process.env.NODE_ENV === "production"){
     URL = "https://shrouded-savannah-58703.herokuapp.com/projects";
     imageURL = "https://shrouded-savannah-58703.herokuapp.com/";
+    verifyURL = "https://shrouded-savannah-58703.herokuapp.com/users/verifyUserSession/";
 }else if(process.env.NODE_ENV === "development"){
     URL = "http://localhost:3000/projects";
     imageURL = "http://localhost:3000/";
+    verifyURL = "http://localhost:3000/users/verifyUserSession/"
 }
 
 class AdminPage extends Component {
@@ -133,30 +136,37 @@ class AdminPage extends Component {
 
     handleProjectFormSubmit = e => {
         e.preventDefault();
-        this.setState({ formInput: {
-            title: this.state.title,
-            description: this.state.description,
-            tech: this.state.tech,
-            site_link: this.state.site_link,
-            code_link: this.state.code_link,
-            filters: this.state.filters
-        }}, () => {
-            let formData = new FormData();
-            formData.append('formInput', JSON.stringify(this.state.formInput));
-            formData.append('image', this.state.imageFile);
-    
-            fetch(URL, {
-                method: 'post',
-                mode: 'cors',
-                body: formData,
-            }).then((response) => {
-                if(response.ok){
-                    this.handleProjectReset();
-                    this.fetchProjectsInDB();
-                }
-            })
-
-        });
+        fetch(verifyURL + localStorage.getItem("token")).then(result => {
+            if(result.ok && result.status === 200){
+                this.setState({ formInput: {
+                    title: this.state.title,
+                    description: this.state.description,
+                    tech: this.state.tech,
+                    site_link: this.state.site_link,
+                    code_link: this.state.code_link,
+                    filters: this.state.filters
+                }}, () => {
+                    let formData = new FormData();
+                    formData.append('formInput', JSON.stringify(this.state.formInput));
+                    formData.append('image', this.state.imageFile);
+            
+                    fetch(URL, {
+                        method: 'post',
+                        mode: 'cors',
+                        body: formData,
+                    }).then((response) => {
+                        if(response.ok){
+                            this.handleProjectReset();
+                            this.fetchProjectsInDB();
+                        }
+                    })
+                });
+            } else {
+                alert("You are not authorized to be on this page.");
+                localStorage.clear();
+                this.props.history.push('/');
+            }
+        })
     }
 
     handleProjectModifySubmit = (projectId) => {
@@ -218,35 +228,50 @@ class AdminPage extends Component {
     }
 
     handleProjectDelete = (projectId) => {
-        fetch(URL + '/' + projectId, {
-            method: 'delete',
-            mode: 'cors'
-        }).then((response) => {
-            if(response.ok){
-                this.fetchProjectsInDB();
+        fetch(verifyURL + localStorage.getItem("token")).then(result => {
+            if(result.ok && result.status === 200){
+                fetch(URL + '/' + projectId, {
+                    method: 'delete',
+                    mode: 'cors'
+                }).then((response) => {
+                    if(response.ok){
+                        this.fetchProjectsInDB();
+                    }
+                })
+            }else {
+                alert("You are not authorized to be on this page.");
+                localStorage.clear();
+                this.props.history.push('/');
             }
         })
     }
 
     handleProjectModify = (projectId) => {
-        this.setState({
-            modify: true,
-            projectToModify: projectId
-        })
-
-        this.state.projects.filter(project => project._id === projectId).map( project => {
-            return(
+        fetch(verifyURL + localStorage.getItem("token")).then(result => {
+            if(result.ok && result.status === 200){
                 this.setState({
-                    title: project.title,
-                    description: project.description,
-                    tech: project.tech,
-                    site_link: project.site_link,
-                    code_link: project.code_link,
-                    filters: project.filters,
-                    disabled: project.disabled,
-                    imageFile: project.image
+                    modify: true,
+                    projectToModify: projectId
                 })
-            )
+                this.state.projects.filter(project => project._id === projectId).map( project => {
+                    return(
+                        this.setState({
+                            title: project.title,
+                            description: project.description,
+                            tech: project.tech,
+                            site_link: project.site_link,
+                            code_link: project.code_link,
+                            filters: project.filters,
+                            disabled: project.disabled,
+                            imageFile: project.image
+                        })
+                    )
+                })
+            }else {
+                alert("You are not authorized to be on this page.");
+                localStorage.clear();
+                this.props.history.push('/');
+            }
         })
     }
 
