@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import "../styles/admin-page.css";
 
 let URL;
@@ -44,7 +45,8 @@ class AdminPage extends Component {
         return (
           <div id="admin_page">
               <div className="container">
-      
+
+                  <Link to="/"><button className="btn btn-info mb-2 ml-1">home</button></Link>
                   <form className="project-form" onSubmit={this.handleProjectFormSubmit}>
                       <div className="form-group">
                           <h1 className="text-white">Add a new project</h1>
