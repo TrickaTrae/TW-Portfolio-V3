@@ -2,19 +2,9 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import "../styles/admin-page.css";
 
-let URL;
-let imageURL;
-let verifyURL;
-
-if(process.env.NODE_ENV === "production"){
-    URL = "https://shrouded-savannah-58703.herokuapp.com/projects";
-    imageURL = "https://shrouded-savannah-58703.herokuapp.com/";
-    verifyURL = "https://shrouded-savannah-58703.herokuapp.com/users/verifyUserSession/";
-}else if(process.env.NODE_ENV === "development"){
-    URL = "http://localhost:3000/projects";
-    imageURL = "http://localhost:3000/";
-    verifyURL = "http://localhost:3000/users/verifyUserSession/"
-}
+const projectURL = process.env.REACT_APP_PROJECT_URL;
+const imageURL = process.env.REACT_APP_IMAGE_URL;
+const verifyURL = process.env.REACT_APP_VERIFYUSERSESSION_URL;
 
 class AdminPage extends Component {
     constructor(){
@@ -129,7 +119,7 @@ class AdminPage extends Component {
     }
 
     fetchProjectsInDB = () => {
-        fetch(URL).then(result => {
+        fetch(projectURL).then(result => {
             return result.json();
         }).then(data => {
             this.setState({ projects: data });
@@ -152,7 +142,7 @@ class AdminPage extends Component {
                     formData.append('formInput', JSON.stringify(this.state.formInput));
                     formData.append('image', this.state.imageFile);
             
-                    fetch(URL, {
+                    fetch(projectURL, {
                         method: 'post',
                         mode: 'cors',
                         body: formData,
@@ -187,7 +177,7 @@ class AdminPage extends Component {
                 formData.append('formInput', JSON.stringify(this.state.formInput));
                 formData.append('image', this.state.newImageFile);
         
-                fetch(URL + '/' + projectId, {
+                fetch(projectURL + '/' + projectId, {
                     method: 'put',
                     mode: 'cors',
                     body: formData,
@@ -212,7 +202,7 @@ class AdminPage extends Component {
             }}, () => {
                 let formData = JSON.stringify(this.state.formInput)
         
-                fetch(URL + '/' + projectId, {
+                fetch(projectURL + '/' + projectId, {
                     method: 'put',
                     mode: 'cors',
                     body: formData,
@@ -232,7 +222,7 @@ class AdminPage extends Component {
     handleProjectDelete = (projectId) => {
         fetch(verifyURL + localStorage.getItem("token")).then(result => {
             if(result.ok && result.status === 200){
-                fetch(URL + '/' + projectId, {
+                fetch(projectURL + '/' + projectId, {
                     method: 'delete',
                     mode: 'cors'
                 }).then((response) => {

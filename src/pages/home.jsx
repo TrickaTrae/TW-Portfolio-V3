@@ -5,12 +5,7 @@ import Projects from "../components/projects";
 import Footer from "../components/footer";
 import "../styles/home.css";
 
-let URL;
-if(process.env.NODE_ENV === "production"){
-    URL = "https://shrouded-savannah-58703.herokuapp.com/projects";
-}else if(process.env.NODE_ENV === "development"){
-    URL = "http://localhost:3000/projects";
-}
+const projectURL = process.env.REACT_APP_PROJECT_URL;
 
 class Home extends Component {
   constructor(){
@@ -47,7 +42,7 @@ class Home extends Component {
   }
 
   fetchProjectsInDB = () => {
-    fetch(URL).then(result => {
+    fetch(projectURL).then(result => {
       return result.json();
     }).then(data => {
       this.setState({ projects: data, originalProjects: data });

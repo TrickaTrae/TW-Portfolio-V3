@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import '../styles/sign-in.css'
 
-let URL;
-
-if(process.env.NODE_ENV === "production"){
-    URL = "https://shrouded-savannah-58703.herokuapp.com/users/sign-in";
-}else if(process.env.NODE_ENV === "development"){
-    URL = "http://localhost:3000/users/sign-in";
-}
+const projectURL = process.env.REACT_APP_PROJECT_URL;
 
 class SignIn extends Component {
     constructor(){
@@ -41,7 +35,7 @@ class SignIn extends Component {
             password: this.state.password
         }}, () => {
             let data = JSON.stringify(this.state.userSignIn);
-            fetch(URL, {
+            fetch(projectURL, {
                 method: 'post',
                 mode: 'cors',
                 body: data,

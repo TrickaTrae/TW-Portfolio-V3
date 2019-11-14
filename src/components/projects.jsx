@@ -1,12 +1,7 @@
 import React from "react";
 import "../styles/projects.css";
 
-let imageURL;
-if(process.env.NODE_ENV === "production"){
-    imageURL = "https://shrouded-savannah-58703.herokuapp.com/";
-}else if(process.env.NODE_ENV === "development"){
-    imageURL = "http://localhost:3000/";
-}
+const imageURL = process.env.REACT_APP_IMAGE_URL;
 
 const Projects = props => {
   return (
