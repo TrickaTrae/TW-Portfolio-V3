@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../styles/sign-in.css'
 
-const projectURL = process.env.REACT_APP_PROJECT_URL;
+const signinURL = process.env.REACT_APP_SIGNIN_URL;
 
 class SignIn extends Component {
     constructor(){
@@ -35,7 +35,7 @@ class SignIn extends Component {
             password: this.state.password
         }}, () => {
             let data = JSON.stringify(this.state.userSignIn);
-            fetch(projectURL, {
+            fetch(signinURL, {
                 method: 'post',
                 mode: 'cors',
                 body: data,

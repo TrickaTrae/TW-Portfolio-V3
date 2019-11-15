@@ -5,6 +5,7 @@ import "../styles/admin-page.css";
 const projectURL = process.env.REACT_APP_PROJECT_URL;
 const imageURL = process.env.REACT_APP_IMAGE_URL;
 const verifyURL = process.env.REACT_APP_VERIFYUSERSESSION_URL;
+const signoutURL = process.env.REACT_APP_SIGNOUT_URL;
 
 class AdminPage extends Component {
     constructor(){
@@ -37,6 +38,7 @@ class AdminPage extends Component {
               <div className="container">
 
                   <Link to="/"><button className="btn btn-info mb-2 ml-1">home</button></Link>
+                  <button onClick={() => this.handleSignOut()} className="btn btn-info mb-2 ml-1">sign-out</button>
                   <form className="project-form" onSubmit={this.handleProjectFormSubmit}>
                       <div className="form-group">
                           <h1 className="text-white">Add a new project</h1>
@@ -280,6 +282,28 @@ class AdminPage extends Component {
             disabled: "",
             imageFile: "",
             fileInputKey: Date.now()
+        })
+    }
+
+    handleSignOut = () => {
+        fetch(verifyURL + localStorage.getItem("token")).then(result => {
+            if(result.ok && result.status === 200){
+                fetch(signoutURL + localStorage.getItem("token")).then(response => {
+                    if(response.ok){
+                        alert("Successfully signed out!");
+                        localStorage.clear();
+                        this.props.history.push('/');
+                    } else {
+                        response.json().then(json => {
+                            alert(JSON.stringify(json));
+                        })
+                    }
+                })
+            }else {
+                alert("You are not authorized to be on this page.");
+                localStorage.clear();
+                this.props.history.push('/');
+            }
         })
     }
 
