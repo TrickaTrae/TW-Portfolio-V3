@@ -25,8 +25,11 @@ const Projects = props => {
                                     <img src={project.image} className="project-image position-absolute h-100 w-100" alt="project pic"/>
                                     <div className="position-absolute h-100 w-100 p-4 project-info-div">
                                         <h2 className="text-white">{project.title}</h2>
-                                        <div className="border-top border-info w-25 mt-3 mb-3"></div>
+                                        <div className="border-top border-info w-50 mt-4 mb-4"></div>
                                         <h5 className="text-white project-desc">{project.description}</h5>
+                                        <button className="btn btn-outline-info btn-lg mt-4 mr-4 learn-more-btn">
+                                            <i className="fa fa-arrow-right text-white" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
