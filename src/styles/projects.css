@@ -22,6 +22,15 @@
   transition: all 0.3s ease-in-out;
 }
 
+.project-div:hover > .project-info-div {
+  opacity: .9;
+}
+
+.project-div:hover > .project-image {
+  -webkit-animation: background-pan 5s ease-out both;
+	animation: background-pan 5s ease-out both;
+}
+
 .project-desc {
   display: block;
   display: -webkit-box;
@@ -33,18 +42,14 @@
 
 .learn-more-btn {
   border-radius: 50% !important;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
-.project-div:hover > .project-info-div {
-  opacity: .9;
+.project-modal-content {
+  background-color: #282c34;
 }
 
-.project-div:hover > .project-image {
-  -webkit-animation: background-pan 5s ease-out both;
-	animation: background-pan 5s ease-out both;
+.project-modal-button {
+  border-radius: 2.5px;
 }
 
 @media screen and (max-width: 576px) {

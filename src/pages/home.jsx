@@ -10,7 +10,7 @@ class Home extends Component {
     super();
     this.state = {
       projects: [],
-      originalProjects: [],
+      modalProject: '',
       animateFooter: false
     };
 
@@ -28,15 +28,15 @@ class Home extends Component {
       <div id="home">
         <NavBar />
         <Intro projRef={this.projRef} onViewWorkClick={this.handleViewWorkScroll} />
-        <Projects projects={this.state.projects} projRef={this.projRef} />
+        <Projects projects={this.state.projects} projRef={this.projRef} modalProject={this.state.modalProject} setModalProject={this.handleModalProject}/>
         <Footer footerRef={this.footerRef} animateFooter={this.state.animateFooter} />
       </div>
     );
   }
 
   fetchProjectsInDB = () => {
-    fetch(process.env.REACT_APP_PROJECT_URL).then(result => result.json()).then(data => {
-      this.setState({ projects: data, originalProjects: data });
+    fetch(process.env.REACT_APP_PROJECT_URL).then(result => result.json()).then(projects => {
+      this.setState({ projects });
     })
   }
 
@@ -44,6 +44,10 @@ class Home extends Component {
     let top = this.projRef.current.offsetTop;
     let left = this.projRef.current.offsetLeft;
     window.scroll({top: top, left: left, behavior: 'smooth'});
+  }
+
+  handleModalProject = modalProject => {
+    this.setState({ modalProject })
   }
 
   handleFooterAnimation = () => {
