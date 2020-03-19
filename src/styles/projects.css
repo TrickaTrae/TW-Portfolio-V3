@@ -17,13 +17,13 @@
 
 .project-info-div {
   z-index: 99;
-  background-color: #282c34;
+  background-color: #000000;
   opacity: 0;
   transition: all 0.3s ease-in-out;
 }
 
 .project-div:hover > .project-info-div {
-  opacity: .9;
+  opacity: .825;
 }
 
 .project-div:hover > .project-image {
