@@ -64,13 +64,23 @@ class AdminPage extends Component {
                                         <div className="row">
                                             <div className="col-6">
                                                 <h2 className="text-white">{project._id}</h2>
-                                                <label className="text-secondary">Title: </label><input type="text" className="form-control" defaultValue={this.state.title} required onChange={e => this.setState({ title: e.target.value })}/><br/>
-                                                <label className="text-secondary">Description: </label><input type="text" className="form-control" defaultValue={this.state.description} required onChange={e => this.setState({ description: e.target.value })}/><br/>
-                                                <label className="text-secondary">Tech: </label><input type="text" className="form-control" defaultValue={this.state.tech} onChange={e => this.setState({ tech: e.target.value })}/><br/>
-                                                <label className="text-secondary">Site link: </label><input type="text" className="form-control" defaultValue={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })}/><br/>
-                                                <label className="text-secondary">Code link: </label><input type="text" className="form-control" defaultValue={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })}/><br/>
-                                                <label className="text-secondary">Filters: </label><input type="text" className="form-control" defaultValue={this.state.filters} onChange={e => this.setState({ filters: e.target.value })}/><br/>
-                                                {this.state.disabled ? <button className="btn btn-warning mt-3" onClick={() => this.setState({ disabled: false })}>Enable Project</button> : <button className="btn btn-danger mt-3" onClick={() => this.setState({ disabled: true })}>Disable Project</button>}
+                                                <label className="text-secondary">Title: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.title} required onChange={e => this.setState({ title: e.target.value })}/><br/>
+                                                <label className="text-secondary">Description: </label>
+                                                <textarea type="text" className="form-control" rows="4" value={this.state.description} required onChange={e => this.setState({ description: e.target.value })}/><br/>
+                                                <label className="text-secondary">Tech: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.tech} onChange={e => this.setState({ tech: e.target.value })}/><br/>
+                                                <label className="text-secondary">Site link: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })}/><br/>
+                                                <label className="text-secondary">Code link: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })}/><br/>
+                                                <label className="text-secondary">Filters: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.filters} onChange={e => this.setState({ filters: e.target.value })}/><br/>
+                                                {
+                                                    this.state.disabled
+                                                    ? <button className="btn btn-warning mt-3" onClick={() => this.setState({ disabled: false })}>Enable Project</button>
+                                                    : <button className="btn btn-danger mt-3" onClick={() => this.setState({ disabled: true })}>Disable Project</button>
+                                                }
                                                 <button type="submit" className="btn btn-success ml-2 mt-3" onClick={() => this.handleProjectModifySubmit(project._id)}>{this.state.modifyIsLoading ? <i className="fa fa-spinner fa-pulse"></i> : "Submit"}</button>
                                                 <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectReset()}>Cancel</button>
                                             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import ProfilePic from '../assetts/ProfilePic-cropped.jpg';
+import ProfilePic from '../assetts/3-22-20_cropped.png';
 import "../styles/intro.css";
 import "../styles/animations.css"
 
