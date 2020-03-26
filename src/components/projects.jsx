@@ -26,7 +26,7 @@ const Projects = props => {
                                     <div className="position-absolute h-100 w-100 p-4 project-info-div">
                                         <div className="d-flex align-items-start justify-content-between">
                                             <h2 className="text-white">{project.title}</h2>
-                                            <button className="btn btn-outline-info btn-lg learn-more-btn" type="button" onClick={() => props.setModalProject(project)} data-toggle="modal" data-target="#projectModal">
+                                            <button className="btn btn-outline-info btn-lg learn-more-btn" type="button" aria-label="learn-more" onClick={() => props.setModalProject(project)} data-toggle="modal" data-target="#projectModal">
                                                 <i className="fa fa-arrow-right text-white" aria-hidden="true"></i>
                                             </button>
                                         </div>
