@@ -1,5 +1,4 @@
 import React from "react";
-import ProfilePic from '../assetts/3-22-20_cropped.png';
 import "../styles/intro.css";
 import "../styles/animations.css"
 
@@ -10,7 +9,7 @@ const Intro = props => {
 
             <div className="row d-flex align-items-center justify-content-start pb-4 fade-in-fwd-profile-pic">
                 <div className="col-12">
-                    <img src={ProfilePic} className="intro-profile-pic" alt="Profile Pic"/>
+                    <img src={process.env.REACT_APP_PROFILE_PIC_URL} className="intro-profile-pic" alt="Profile Pic"/>
                 </div>
             </div>
 
