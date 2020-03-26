@@ -18,7 +18,7 @@ const Projects = props => {
 
             <div className="row">
                 {
-                    props.projects.filter(project => project.disabled === false).map((project, key) => {
+                    props.projects.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).filter(project => project.disabled === false).map((project, key) => {
                         return (
                             <div className="col-12 col-sm-6 pt-3 pb-3 project-col" key={key}>
                                 <div className="position-relative h-100 w-100 project-div">
