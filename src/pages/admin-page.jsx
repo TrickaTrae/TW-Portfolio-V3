@@ -31,22 +31,34 @@ class AdminPage extends Component {
 
     displayProjectForm = () => {
         return (
-            <div className="container">
+            <div className="container-fluid mb-5">
                 <form className="project-form" onSubmit={this.handleProjectFormSubmit}>
                     <div className="form-group">
                         <h1 className="text-white">Add a new project</h1>
-                        <input type="text" className="form-control mb-1" id="project_title" placeholder="title" value={this.state.title} required onChange={e => this.setState({ title: e.target.value })} />
-                        <textarea className="form-control mb-1" id="project_description" placeholder="description" value={this.state.description} required onChange={e => this.setState({ description: e.target.value })} />
-                        <input type="text" className="form-control mb-1" id="project_tech" placeholder="technologies used" value={this.state.tech} onChange={e => this.setState({ tech: e.target.value })} />
-                        <input type="text" className="form-control mb-1" id="project_site_link" placeholder="site url" value={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })} />
-                        <input type="text" className="form-control mb-1" id="project_code_link" placeholder="code url (github, bitbucket, etc)" value={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })} />
-                        <input type="text" className="form-control" id="project_filters" placeholder="filters (React, Meteor, etc)" value={this.state.filters} onChange={e => this.setState({ filters: e.target.value })} />
+                        <div className="row">
+                            <div className="col-12 col-md-6">
+                                <input type="text" className="form-control mb-1" id="project_title" placeholder="title" value={this.state.title} required onChange={e => this.setState({ title: e.target.value })} />
+                                <input type="text" className="form-control mb-1" id="project_site_link" placeholder="site url" value={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })} />
+                                <input type="text" className="form-control mb-1" id="project_code_link" placeholder="code url (github, bitbucket, etc)" value={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })} />
+                                <input type="text" className="form-control mb-1" id="project_filters" placeholder="filters (React, Meteor, etc)" value={this.state.filters} onChange={e => this.setState({ filters: e.target.value })} />
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <textarea className="form-control mb-1 h-75" id="project_description" placeholder="description" value={this.state.description} required onChange={e => this.setState({ description: e.target.value })} />
+                                <input type="text" className="form-control mb-1" id="project_tech" placeholder="technologies used" value={this.state.tech} onChange={e => this.setState({ tech: e.target.value })} />
+                            </div>
+                        </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="project_image" className="text-white">Upload Website Image: </label>
-                        <input type="file" className="form-control-file mb-1 text-white" id="project_image" key={this.state.fileInputKey} required onChange={e => this.setState({ imageFile: e.target.files[0] })} />
+                        <div className="row">
+                            <div className="col-12 col-md-6">
+                                <label htmlFor="project_image" className="text-white">Upload Website Image: </label>
+                                <input type="file" className="form-control-file mb-1 text-white" id="project_image" key={this.state.fileInputKey} required onChange={e => this.setState({ imageFile: e.target.files[0] })} />
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <button type="submit" className="btn btn-success btn-lg submit-button">{this.state.isLoading ? <i className="fa fa-spinner fa-pulse"></i> : "Submit"}</button>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" className="btn btn-success btn-lg submit-button">{this.state.isLoading ? <i className="fa fa-spinner fa-pulse"></i> : "Submit"}</button>
                 </form>
             </div>
         )
@@ -54,42 +66,57 @@ class AdminPage extends Component {
 
     displayProjects = () => {
         return (
-            <div className="container">
+            <div className="container-fluid">
                 {this.state.projects.map((project, key) => {
                     if(this.state.modify === true && this.state.projectToModify === project._id){
                         return(
-                            <div className="projects" key={key}>
+                            <div className={project.disabled ? "projects border border-danger pt-3 pr-3 pl-3 pb-2" : "projects border border-success pt-3 pr-3 pl-3 pb-2"} key={key}>
                                 <div className="form">
                                     <div className="form-group">
                                         <div className="row">
-                                            <div className="col-6">
-                                                <h2 className="text-white">{project._id}</h2>
+                                            <div className="col-12">
+                                                <h2 className="text-white text-break">{project._id}</h2>
+                                            </div>
+                                            <div className="col-12 col-md-6">
                                                 <label className="text-secondary">Title: </label>
                                                 <input type="text" className="form-control" defaultValue={this.state.title} required onChange={e => this.setState({ title: e.target.value })}/><br/>
                                                 <label className="text-secondary">Description: </label>
                                                 <textarea type="text" className="form-control" value={this.state.description} required onChange={e => this.setState({ description: e.target.value })}/><br/>
                                                 <label className="text-secondary">Tech: </label>
                                                 <input type="text" className="form-control" defaultValue={this.state.tech} onChange={e => this.setState({ tech: e.target.value })}/><br/>
+                                                <label className="text-secondary">Filters: </label>
+                                                <input type="text" className="form-control" defaultValue={this.state.filters} onChange={e => this.setState({ filters: e.target.value })}/><br/>
+                                            </div>
+                                            <div className="col-12 col-md-6 d-flex flex-column justify-content-center">
                                                 <label className="text-secondary">Site link: </label>
                                                 <input type="text" className="form-control" defaultValue={this.state.site_link} onChange={e => this.setState({ site_link: e.target.value })}/><br/>
                                                 <label className="text-secondary">Code link: </label>
                                                 <input type="text" className="form-control" defaultValue={this.state.code_link} onChange={e => this.setState({ code_link: e.target.value })}/><br/>
-                                                <label className="text-secondary">Filters: </label>
-                                                <input type="text" className="form-control" defaultValue={this.state.filters} onChange={e => this.setState({ filters: e.target.value })}/><br/>
-                                                {
-                                                    this.state.disabled
-                                                    ? <button className="btn btn-warning mt-3" onClick={() => this.setState({ disabled: false })}>Enable Project</button>
-                                                    : <button className="btn btn-danger mt-3" onClick={() => this.setState({ disabled: true })}>Disable Project</button>
-                                                }
-                                                <button type="submit" className="btn btn-success ml-2 mt-3" onClick={() => this.handleProjectModifySubmit(project._id)}>{this.state.modifyIsLoading ? <i className="fa fa-spinner fa-pulse"></i> : "Submit"}</button>
-                                                <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectReset()}>Cancel</button>
-                                            </div>
-                                            <div className="col-6 d-flex flex-column justify-content-center p-2">
                                                 <label className="text-white">Keep current image: </label>
                                                 <input type="text" className="form-control" defaultValue={this.state.imageFile}/>
                                                 <p className="text-white mt-3 mb-3">- OR -</p>
                                                 <label htmlFor="project_image_2" className="text-white">Upload New Image: </label>
                                                 <input type="file" className="form-control-file mb-1 text-white p-auto" id="project_image_2" required onChange={e => this.setState({ newImageFile: e.target.files[0] })} />
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12 pb-3 pt-4">
+                                                <div className="border-bottom border-secondary w-100"></div>
+                                            </div>
+                                            <div className="col-12 col-md-4 pb-1">
+                                                <button className="btn btn-danger w-100" onClick={() => this.handleProjectReset()}>Cancel</button>
+                                            </div>
+                                            <div className="col-12 col-md-4 pb-1">
+                                                {
+                                                    this.state.disabled
+                                                    ? <button className="btn btn-warning w-100" onClick={() => this.setState({ disabled: false })}>Enable Project</button>
+                                                    : <button className="btn btn-danger w-100" onClick={() => this.setState({ disabled: true })}>Disable Project</button>
+                                                }
+                                            </div>
+                                            <div className="col-12 col-md-4 pb-1">
+                                                <button type="submit" className="btn btn-success w-100" onClick={() => this.handleProjectModifySubmit(project._id)}>
+                                                    {this.state.modifyIsLoading ? <i className="fa fa-spinner fa-pulse"></i> : "Submit"}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -98,22 +125,46 @@ class AdminPage extends Component {
                         )
                     } else {
                         return(
-                            <div className="projects" key={key}>
+                            <div className={project.disabled ? "projects border border-danger p-4" : "projects border border-success p-4"} key={key}>
                                 <div className="row">
-                                    <div className="col-6">
-                                        <h2 className="text-white">{project._id}</h2>
-                                        <span className="text-secondary">Title: </span><span className="text-white">{project.title}</span><br/>
-                                        <span className="text-secondary">Description: </span><pre className="text-white project-desc-pre">{project.description}</pre><br/>
+                                    <div className="col-12 col-md-3 d-flex align-items-center justify-content-center">
+                                        <h2 className="text-white text-break text-center">{project.title}</h2>
+                                    </div>
+                                    <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                                        <h2 className="text-white text-break text-center">{project._id}</h2>
+                                    </div>
+                                    <div className="col-12 col-md-3 d-flex align-items-center justify-content-center">
+                                        {
+                                            project.disabled
+                                            ? <strong className="text-danger">DISABLED</strong>
+                                            : <strong className="text-success">ENABLED</strong>
+                                        }
+                                    </div>
+                                    <div className="col-12 pb-4 pt-3">
+                                        <div className="border-bottom border-secondary w-100"></div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-12 col-md-6">
+                                        <span className="text-secondary">Description: </span><pre className="text-white project-desc-pre mb-0">{project.description}</pre><br/>
                                         <span className="text-secondary">Tech: </span><span className="text-white">{project.tech}</span><br/>
                                         <span className="text-secondary">Site link: </span><span className="text-white">{project.site_link}</span><br/>
                                         <span className="text-secondary">Code link: </span><span className="text-white">{project.code_link}</span><br/>
                                         <span className="text-secondary">Filters: </span><span className="text-white">{project.filters}</span><br/>
-                                        {project.disabled ? <span className="text-danger">This project is disabled</span> : <span className="text-success">This project is enabled</span>}<br/>
-                                        <button className="btn btn-warning mt-3" onClick={() => this.handleProjectModify(project._id)}>Modify</button>
-                                        <button className="btn btn-danger ml-2 mt-3" onClick={() => this.handleProjectDelete(project._id)}>Delete</button>
                                     </div>
-                                    <div className="col-6 d-flex align-items-center justify-content-center p-2">
+                                    <div className="col-12 col-md-6 d-flex align-items-center justify-content-center p-2">
                                         <img className="project-image" src={project.image} alt="Card pic" />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-12 pb-3 pt-4">
+                                        <div className="border-bottom border-secondary w-100"></div>
+                                    </div>
+                                    <div className="col-6 pr-1">
+                                        <button className="btn btn-warning w-100" onClick={() => this.handleProjectModify(project._id)}>Modify</button>
+                                    </div>
+                                    <div className="col-6 pl-1">
+                                        <button className="btn btn-danger w-100" onClick={() => this.handleProjectDelete(project._id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,10 +179,14 @@ class AdminPage extends Component {
         return (
             <div id="admin_page">
 
-                <div className="container">
-                    <div className="row">
-                        <Link to="/"><button className="btn btn-info mb-2 ml-1">home</button></Link>
-                        <button onClick={() => this.handleSignOut()} className="btn btn-info mb-2 ml-1">sign-out</button>
+                <div className="container-fluid pt-5">
+                    <div className="row pb-3">
+                        <div className="col-6 pr-1">
+                            <Link to="/"><button className="btn btn-info w-100 admin-btn">home</button></Link>
+                        </div>
+                        <div className="col-6 pl-1">
+                            <button onClick={() => this.handleSignOut()} className="btn btn-info w-100 admin-btn">sign-out</button>
+                        </div>
                     </div>
                 </div>
 
