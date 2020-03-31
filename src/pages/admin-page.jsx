@@ -67,7 +67,7 @@ class AdminPage extends Component {
     displayProjects = () => {
         return (
             <div className="container-fluid">
-                {this.state.projects.map((project, key) => {
+                {this.state.projects.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((project, key) => {
                     if(this.state.modify === true && this.state.projectToModify === project._id){
                         return(
                             <div className={project.disabled ? "projects border border-danger pt-3 pr-3 pl-3 pb-2" : "projects border border-success pt-3 pr-3 pl-3 pb-2"} key={key}>
