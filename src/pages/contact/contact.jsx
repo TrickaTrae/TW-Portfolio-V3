@@ -25,7 +25,7 @@ const Contact = () => {
                             <i className="fa fa-github fa-4x text-secondary ml-4 my-icon" aria-hidden="true"></i>
                         </a>
                         <a name="blog" href="https://medium.com/@traeger.winn">
-                            <i class="fa fa-medium fa-4x text-secondary ml-4 my-icon" aria-hidden="true"></i>
+                            <i className="fa fa-medium fa-4x text-secondary ml-4 my-icon" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>

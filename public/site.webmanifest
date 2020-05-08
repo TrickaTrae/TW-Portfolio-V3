@@ -1,6 +1,6 @@
 {
-    "name":"Traeger Winn Portfolio",
-    "short_name":"Portfolio",
+    "name":"Traeger Winn",
+    "short_name":"TW",
     "icons":
     [
         {
@@ -10,8 +10,7 @@
         },
         {
             "src":"/android-chrome-512x512.png",
-            "sizes":"512x512",
-            "type":"image/png"
+            "sizes":"512x512","type":"image/png"
         }
     ],
     "theme_color":"#ffffff",

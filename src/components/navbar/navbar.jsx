@@ -5,7 +5,7 @@ import './navbar.css';
 const NavBar = () => {
   return (
     <nav id="navbar" className="navbar navbar-expand-lg fixed-top navbar-dark">
-      <Link to="/" className="navbar-brand">Traeger Winn</Link>
+      <Link to="/" className="navbar-brand">TW</Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" name="toggle navbar">
           <span className="navbar-toggler-icon"></span>
       </button>
