@@ -2,8 +2,3 @@
     background-color: #000;
     min-height: 100vh;
 }
-
-.fade-in-fwd {
-	-webkit-animation: fade-in-fwd 2s ease-in-out 0.25s both;
-	animation: fade-in-fwd 2s ease-in-out 0.25s both;
-}

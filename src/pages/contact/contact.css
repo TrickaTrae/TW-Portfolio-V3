@@ -1,0 +1,17 @@
+#contact {
+    background-color: #000;
+    min-height: 100vh;
+}
+
+.my-icon {
+    transition: all .2s ease-in-out;
+}
+  
+.my-icon:hover {
+    -webkit-transform: scale(1.04);
+    -ms-transform: scale(1.04);
+    transform: scale(1.04);
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #ffffff !important;
+}

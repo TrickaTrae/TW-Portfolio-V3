@@ -1,3 +1,8 @@
+.fade-in-fwd {
+	-webkit-animation: fade-in-fwd 1.25s ease-in both;
+	animation: fade-in-fwd 1.25s ease-in both;
+}
+
 @-webkit-keyframes fade-in-fwd {
     0% {
         -webkit-transform: translateZ(-80px);

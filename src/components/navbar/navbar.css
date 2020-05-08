@@ -1,0 +1,10 @@
+#navbar {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0), rgb(0, 0, 0, 0.75), rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+}
+
+@media screen and (max-width: 960px) {
+    #navbar {
+        background-image: none;
+        background-color: #000000;
+    }
+}  
