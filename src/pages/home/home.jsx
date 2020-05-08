@@ -1,63 +1,30 @@
-import React, { Component } from "react";
-import NavBar from "../../components/navbar/navbar";
-import Intro from "../../components/intro/intro";
-import Projects from "../../components/projects/projects";
-import Footer from "../../components/footer/footer";
-import './home.css';
+import React from 'react';
+import './home.css'
 
-class Home extends Component {
-  constructor(){
-    super();
-    this.state = {
-      projects: [],
-      modalProject: '',
-      animateFooter: false
-    };
-
-    this.projRef = React.createRef();
-    this.footerRef = React.createRef();
-  }
-
-  componentDidMount() {
-    this.fetchProjectsInDB();
-    window.addEventListener('scroll', this.handleFooterAnimation);
-  }
-  
-  render() {
+const Home = () => {
     return (
-      <div id="home">
-        <NavBar />
-        <Intro projRef={this.projRef} onViewWorkClick={this.handleViewWorkScroll} />
-        <Projects projects={this.state.projects} projRef={this.projRef} modalProject={this.state.modalProject} setModalProject={this.handleModalProject}/>
-        <Footer footerRef={this.footerRef} animateFooter={this.state.animateFooter} />
+      <div id="home" className="d-flex align-items-center justify-content-start">
+          <div className="container fade-in-fwd">
+              <div className="row d-flex align-items-center justify-content-start pt-5 pb-5">
+                  <div className="col-12">
+                      <h1 className="text-secondary display-2">
+                          Hello.
+                      </h1>
+                      <h1 className="text-secondary display-1">
+                          I'm <span className="text-white">Traeger Winn</span>, aka <span className="text-white">Trae</span>.
+                      </h1>
+                  </div>
+                  <div className="col-12">
+                      <h1 className="text-secondary diplay-4">
+                          I'm a <span className="text-white">Web Developer</span>,
+                          a <span className="text-white">Problem Solver</span>,
+                          a <span className="text-white">Rational Thinker</span>,
+                          and a <span className="text-white">DIY Enthusiast</span>.
+                      </h1>
+                  </div>
+              </div>  
+          </div>
       </div>
     );
-  }
-
-  fetchProjectsInDB = () => {
-    fetch(process.env.REACT_APP_PROJECT_URL).then(result => result.json()).then(projects => {
-      this.setState({ projects });
-    })
-  }
-
-  handleViewWorkScroll = () => {
-    let top = this.projRef.current.offsetTop;
-    let left = this.projRef.current.offsetLeft;
-    window.scroll({top: top, left: left, behavior: 'smooth'});
-  }
-
-  handleModalProject = modalProject => {
-    this.setState({ modalProject })
-  }
-
-  handleFooterAnimation = () => {
-    let bottomOfPage = window.scrollY + window.innerHeight;
-    let topOfFooter = this.footerRef.current.offsetTop;
-    if(bottomOfPage > topOfFooter && this.state.animateFooter === false){
-      this.setState({ animateFooter: true })
-    }
-  }
-
-}
-
-export default Home;
+  };
+  export default Home;
