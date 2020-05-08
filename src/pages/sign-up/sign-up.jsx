@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../styles/sign-up.css'
+import './sign-up.css'
 
 const signupURL = process.env.REACT_APP_SIGNUP_URL;
 

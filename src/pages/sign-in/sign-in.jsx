@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../styles/sign-in.css'
+import './sign-in.css'
 
 const signinURL = process.env.REACT_APP_SIGNIN_URL;
 

@@ -1,6 +1,5 @@
 import React from "react";
-import "../styles/animations.css"
-import "../styles/projects.css";
+import "./projects.css";
 
 const Projects = props => {
   return (

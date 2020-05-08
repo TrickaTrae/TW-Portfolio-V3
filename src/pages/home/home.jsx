@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import NavBar from "../../components/navbar";
-import Intro from "../../components/intro";
-import Projects from "../../components/projects";
-import Footer from "../../components/footer";
-import "./home.css";
+import NavBar from "../../components/navbar/navbar";
+import Intro from "../../components/intro/intro";
+import Projects from "../../components/projects/projects";
+import Footer from "../../components/footer/footer";
+import './home.css';
 
 class Home extends Component {
   constructor(){
