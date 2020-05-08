@@ -7,12 +7,6 @@ const Intro = props => {
     <div id="intro" className="d-flex align-items-center justify-content-start">
         <div className="container">
 
-            <div className="row d-flex align-items-center justify-content-start pb-4 fade-in-fwd-profile-pic">
-                <div className="col-12">
-                    <img src={process.env.REACT_APP_PROFILE_PIC_URL} className="intro-profile-pic" alt="Profile Pic"/>
-                </div>
-            </div>
-
             <div className="row d-flex align-items-center justify-content-start fade-in-fwd">
                 <div className="col-12">
                     <h1 className="intro-h1">
@@ -20,7 +14,7 @@ const Intro = props => {
                     </h1>
                 </div>
                 <div className="col-12">
-                    <h1 className="text-white intro-h1">I'm a Full-Stack Web Developer</h1>
+                    <h1 className="text-white intro-h1">I'm a Web Developer</h1>
                 </div>
             </div>
 

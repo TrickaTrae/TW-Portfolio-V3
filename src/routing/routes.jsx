@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { PrivateRoute } from "./private-route";
-import Home from "../pages/home";
+import Home from "../pages/home/home";
 import AdminPage from "../pages/admin-page";
 import SignUp from "../pages/sign-up";
 import SignIn from "../pages/sign-in";
