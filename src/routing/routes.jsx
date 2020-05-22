@@ -5,9 +5,8 @@ import NavBar from '../components/navbar/navbar';
 import Footer from '../components/footer/footer';
 import Home from '../pages/home/home';
 import Contact from '../pages/contact/contact';
+import User from '../pages/user/user';
 import AdminPage from '../pages/admin-page/admin-page';
-import SignUp from '../pages/sign-up/sign-up';
-import SignIn from '../pages/sign-in/sign-in';
 import '../-global-styles/animations.css'
 
 export default () => (
@@ -16,8 +15,7 @@ export default () => (
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route path="/contact" component={Contact}/>
-            <Route path='/sign-up' component={SignUp}/>
-            <Route path='/sign-in' component={SignIn}/>
+            <Route path='/user' component={User}/>
             <PrivateRoute path="/admin-page" component={AdminPage} />
         </Switch>
     <Footer/>

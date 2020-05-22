@@ -1,0 +1,10 @@
+#user {
+    background-color: #000000;
+    min-height: 100vh;
+}
+
+.my-form {
+    background-color: #0c0c0c;
+    padding: 2rem;
+    border-radius: .25rem;
+}
