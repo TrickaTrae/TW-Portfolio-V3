@@ -12,6 +12,7 @@ const NavBar = () => {
 
       <div className="collapse navbar-collapse" id="navbarContent">
           <div className="navbar-nav ml-auto">
+              <Link to="/blog" className="nav-item nav-link">Blog</Link>
               <Link to="/contact" className="nav-item nav-link">Contact</Link>
           </div>
       </div>
