@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import "./admin-page.css";
+import "./admin.css";
 
-class AdminPage extends Component {
+class Admin extends Component {
     constructor(){
         super();
         this.state = {
@@ -177,7 +177,7 @@ class AdminPage extends Component {
 
     render() {
         return (
-            <div id="admin_page">
+            <div id="admin">
 
                 <div className="container-fluid pt-5">
                     <div className="row pb-3">
@@ -389,4 +389,4 @@ class AdminPage extends Component {
     }
 
 };
-export default AdminPage;
+export default Admin;
