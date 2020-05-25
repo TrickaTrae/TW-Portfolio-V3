@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { verifyUser } from '../../-global-state/actions/user-actions';
 import './user.css'
 
 class User extends Component {
@@ -108,7 +110,8 @@ class User extends Component {
                 }
             }).then(response => response.json()).then(json => {
                 if(json.success){
-                    localStorage.setItem("token", json.data._id)
+                    localStorage.setItem("token", json.data._id);
+                    this.props.verifyUser(localStorage.getItem("token"));
                 }
                 alert(json.message);
                 this.setState({
@@ -121,4 +124,4 @@ class User extends Component {
     }
 
 }
-export default User;
+export default connect(null, { verifyUser })(User);

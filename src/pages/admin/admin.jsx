@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { verifyUser } from '../../-global-state/actions/user-actions';
 import "./admin.css";
 
 class Admin extends Component {
     constructor(){
         super();
         this.state = {
+            projectsLoading: true,
             formInput: {},
             projects: [],
             title: '',
@@ -25,7 +28,8 @@ class Admin extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
+        this.props.verifyUser(localStorage.getItem("token"));
         this.fetchProjectsInDB();
     }
 
@@ -178,67 +182,62 @@ class Admin extends Component {
     render() {
         return (
             <div id="admin">
-
-                <div className="container-fluid pt-5">
-                    <div className="row pb-3">
-                        <div className="col-6 pr-1">
-                            <Link to="/"><button className="btn btn-info w-100 admin-btn">home</button></Link>
+                {
+                    (this.props.userLoading || this.state.projectsLoading) ? "" : this.props.userLoggedIn === false ? <Redirect to="/" /> : 
+                    <>
+                        <div className="container-fluid pt-5">
+                            <div className="row pb-3">
+                                <div className="col-6 pr-1">
+                                    <Link to="/"><button className="btn btn-info w-100 admin-btn">home</button></Link>
+                                </div>
+                                <div className="col-6 pl-1">
+                                    <button onClick={() => this.handleSignOut()} className="btn btn-info w-100 admin-btn">sign-out</button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-6 pl-1">
-                            <button onClick={() => this.handleSignOut()} className="btn btn-info w-100 admin-btn">sign-out</button>
-                        </div>
-                    </div>
-                </div>
 
-                {this.displayProjectForm()}
-                {this.displayProjects()}
-                
+                        {this.displayProjectForm()}
+                        {this.displayProjects()}
+                    </>
+                }
             </div>
         );
     }
 
     fetchProjectsInDB = () => {
-        fetch(process.env.REACT_APP_PROJECT_URL).then(result => result.json()).then(projects => {
-            this.setState({ projects });
+        this.setState({ projectsLoading: true }, () => {
+            fetch(process.env.REACT_APP_PROJECT_URL).then(result => result.json()).then(projects => {
+                this.setState({ projects, projectsLoading: false });
+            })
         })
     }
 
     handleProjectFormSubmit = e => {
         e.preventDefault();
-        this.setState({ isLoading: true });
-        fetch(process.env.REACT_APP_VERIFYUSERSESSION_URL + localStorage.getItem("token")).then(result => {
-            if(result.ok && result.status === 200){
-                this.setState({ formInput: {
-                    title: this.state.title,
-                    description: this.state.description,
-                    tech: this.state.tech,
-                    site_link: this.state.site_link,
-                    code_link: this.state.code_link,
-                    filters: this.state.filters
-                }}, () => {
-                    let formData = new FormData();
-                    formData.append('formInput', JSON.stringify(this.state.formInput));
-                    formData.append('image', this.state.imageFile);
-            
-                    fetch(process.env.REACT_APP_PROJECT_URL, {
-                        method: 'post',
-                        mode: 'cors',
-                        body: formData,
-                    }).then((response) => {
-                        if(response.ok){
-                            this.setState({ isLoading: false });
-                            this.handleProjectReset();
-                            this.fetchProjectsInDB();
-                        }
-                    })
-                });
-            } else {
-                alert("You are not authorized to be on this page.");
-                this.setState({ isLoading: false });
-                localStorage.clear();
-                this.props.history.push('/');
-            }
-        })
+        this.setState({ isLoading: true, formInput: {
+            title: this.state.title,
+            description: this.state.description,
+            tech: this.state.tech,
+            site_link: this.state.site_link,
+            code_link: this.state.code_link,
+            filters: this.state.filters
+        }}, () => {
+            let formData = new FormData();
+            formData.append('formInput', JSON.stringify(this.state.formInput));
+            formData.append('image', this.state.imageFile);
+    
+            fetch(process.env.REACT_APP_PROJECT_URL, {
+                method: 'post',
+                mode: 'cors',
+                body: formData,
+            }).then((response) => {
+                if(response.ok){
+                    this.setState({ isLoading: false });
+                    this.handleProjectReset();
+                    this.fetchProjectsInDB();
+                }
+            })
+        });
     }
 
     handleProjectModifySubmit = projectId => {
@@ -303,50 +302,34 @@ class Admin extends Component {
     }
 
     handleProjectDelete = projectId => {
-        fetch(process.env.REACT_APP_VERIFYUSERSESSION_URL + localStorage.getItem("token")).then(result => {
-            if(result.ok && result.status === 200){
-                fetch(process.env.REACT_APP_PROJECT_URL + '/' + projectId, {
-                    method: 'delete',
-                    mode: 'cors'
-                }).then((response) => {
-                    if(response.ok){
-                        this.fetchProjectsInDB();
-                    }
-                })
-            } else {
-                alert("You are not authorized to be on this page.");
-                localStorage.clear();
-                this.props.history.push('/');
+        fetch(process.env.REACT_APP_PROJECT_URL + '/' + projectId, {
+            method: 'delete',
+            mode: 'cors'
+        }).then((response) => {
+            if(response.ok){
+                this.fetchProjectsInDB();
             }
         })
     }
 
     handleProjectModify = projectId => {
-        fetch(process.env.REACT_APP_VERIFYUSERSESSION_URL + localStorage.getItem("token")).then(result => {
-            if(result.ok && result.status === 200){
+        this.setState({
+            modify: true,
+            projectToModify: projectId
+        })
+        this.state.projects.filter(project => project._id === projectId).map(project => {
+            return(
                 this.setState({
-                    modify: true,
-                    projectToModify: projectId
+                    title: project.title,
+                    description: project.description,
+                    tech: project.tech,
+                    site_link: project.site_link,
+                    code_link: project.code_link,
+                    filters: project.filters,
+                    disabled: project.disabled,
+                    imageFile: project.image
                 })
-                this.state.projects.filter(project => project._id === projectId).map( project => {
-                    return(
-                        this.setState({
-                            title: project.title,
-                            description: project.description,
-                            tech: project.tech,
-                            site_link: project.site_link,
-                            code_link: project.code_link,
-                            filters: project.filters,
-                            disabled: project.disabled,
-                            imageFile: project.image
-                        })
-                    )
-                })
-            } else {
-                alert("You are not authorized to be on this page.");
-                localStorage.clear();
-                this.props.history.push('/');
-            }
+            )
         })
     }
 
@@ -367,26 +350,21 @@ class Admin extends Component {
     }
 
     handleSignOut = () => {
-        fetch(process.env.REACT_APP_VERIFYUSERSESSION_URL + localStorage.getItem("token")).then(result => {
-            if(result.ok && result.status === 200){
-                fetch(process.env.REACT_APP_SIGNOUT_URL + localStorage.getItem("token")).then(response => {
-                    if(response.ok){
-                        alert("Successfully signed out!");
-                        localStorage.clear();
-                        this.props.history.push('/');
-                    } else {
-                        response.json().then(json => {
-                            alert(JSON.stringify(json));
-                        })
-                    }
-                })
-            } else {
-                alert("You are not authorized to be on this page.");
-                localStorage.clear();
-                this.props.history.push('/');
-            }
+        const token = localStorage.getItem("token");
+        fetch(process.env.REACT_APP_SIGNOUT_URL + token).then(response => response.json()).then(json => {
+            alert(json.message);
+            localStorage.setItem("token", "");
+            this.props.verifyUser();
         })
     }
 
 };
-export default Admin;
+
+const mapStateToProps = state => {
+    return {
+        userLoading: state.userState.userLoading,
+        userLoggedIn: state.userState.userLoggedIn,
+    }
+}
+
+export default connect(mapStateToProps, { verifyUser })(Admin);
