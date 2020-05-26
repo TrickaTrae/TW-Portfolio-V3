@@ -32,3 +32,27 @@ export const verifyUser = token => dispatch => {
         })
     }
 }
+
+export const signoutUser = token => dispatch => {
+    if(token) {
+        fetch(process.env.REACT_APP_SIGNOUT_URL + token).then(response => response.json()).then(json => {
+            alert(json.message);
+            localStorage.setItem("token", "");
+            dispatch({
+                type: UPDATE_USER,
+                payload: {
+                    userLoading: false,
+                    userLoggedIn: false
+                }
+            })
+        })
+    } else {
+        dispatch({
+            type: UPDATE_USER,
+            payload: {
+                userLoading: false,
+                userLoggedIn: false
+            }
+        })
+    }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { verifyUser } from '../../-global-state/actions/user-actions';
 import "./admin.css";
@@ -35,8 +35,8 @@ class Admin extends Component {
 
     displayProjectForm = () => {
         return (
-            <div className="container-fluid mb-5">
-                <form className="project-form" onSubmit={this.handleProjectFormSubmit}>
+            <div className="container-fluid pt-5 mb-5">
+                <form className="project-form mt-5" onSubmit={this.handleProjectFormSubmit}>
                     <div className="form-group">
                         <h1 className="text-white">Add a new project</h1>
                         <div className="row">
@@ -185,17 +185,6 @@ class Admin extends Component {
                 {
                     (this.props.userLoading || this.state.projectsLoading) ? "" : this.props.userLoggedIn === false ? <Redirect to="/" /> : 
                     <>
-                        <div className="container-fluid pt-5">
-                            <div className="row pb-3">
-                                <div className="col-6 pr-1">
-                                    <Link to="/"><button className="btn btn-info w-100 admin-btn">home</button></Link>
-                                </div>
-                                <div className="col-6 pl-1">
-                                    <button onClick={() => this.handleSignOut()} className="btn btn-info w-100 admin-btn">sign-out</button>
-                                </div>
-                            </div>
-                        </div>
-
                         {this.displayProjectForm()}
                         {this.displayProjects()}
                     </>
@@ -346,15 +335,6 @@ class Admin extends Component {
             disabled: "",
             imageFile: "",
             fileInputKey: Date.now()
-        })
-    }
-
-    handleSignOut = () => {
-        const token = localStorage.getItem("token");
-        fetch(process.env.REACT_APP_SIGNOUT_URL + token).then(response => response.json()).then(json => {
-            alert(json.message);
-            localStorage.setItem("token", "");
-            this.props.verifyUser();
         })
     }
 

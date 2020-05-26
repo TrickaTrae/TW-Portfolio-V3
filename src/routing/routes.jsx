@@ -8,6 +8,7 @@ import Blog from '../pages/blog/blog';
 import User from '../pages/user/user';
 import Admin from '../pages/admin/admin';
 import '../-global-styles/animations.css'
+import '../-global-styles/styles.css';
 
 export default () => (
     <BrowserRouter>
