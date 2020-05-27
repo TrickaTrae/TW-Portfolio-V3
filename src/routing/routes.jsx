@@ -7,18 +7,20 @@ import Contact from '../pages/contact/contact';
 import Blog from '../pages/blog/blog';
 import User from '../pages/user/user';
 import Admin from '../pages/admin/admin';
+import ScrollToTop from './scroll-to-top';
 import '../-global-styles/animations.css'
 import '../-global-styles/styles.css';
 
 export default () => (
     <BrowserRouter>
+    <ScrollToTop />
     <NavBar/>
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/contact' component={Contact}/>
             <Route path='/blog' component={Blog}/>
             <Route path='/user' component={User}/>
-            <Route path='/admin' component={Admin} />
+            <Route path='/admin' component={Admin}/>
         </Switch>
     <Footer/>
     </BrowserRouter>
